@@ -17,6 +17,7 @@ export class Alive5 implements INodeType {
 		defaults: {
 			name: 'Alive5 - Send SMS',
 		},
+		icon: 'file:alive5.svg',
 		inputs: ['main'],
 		outputs: ['main'],
 		credentials: [
