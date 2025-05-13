@@ -36,12 +36,6 @@ jobs:
           else
             echo "NODE_AUTH_TOKEN is set (value hidden for security)."
           fi
-
-          echo "Listing NPM log directory..."
-          ls -l /home/runner/.npm/_logs/
-
-          echo "Printing NPM log file..."
-          cat /home/runner/.npm/_logs/2025-05-13T17_08_02_640Z-debug-0.log || echo "Log file not found."
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
