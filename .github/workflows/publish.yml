@@ -28,6 +28,23 @@ jobs:
       - name: Build
         run: pnpm build
 
+      - name: Debug NPM Token and Logs
+        run: |
+          echo "Checking if NPM_TOKEN is set..."
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "NODE_AUTH_TOKEN is not set!"
+          else
+            echo "NODE_AUTH_TOKEN is set (value hidden for security)."
+          fi
+
+          echo "Listing NPM log directory..."
+          ls -l /home/runner/.npm/_logs/
+
+          echo "Printing NPM log file..."
+          cat /home/runner/.npm/_logs/2025-05-13T17_08_02_640Z-debug-0.log || echo "Log file not found."
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
       - name: Publish to NPM
         run: pnpm publish --no-git-checks
         env:
