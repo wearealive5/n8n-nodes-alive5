@@ -102,10 +102,6 @@ export class Alive5 implements INodeType {
 							channel.channel_phone_number.startsWith('+'),
 					);
 
-					// Store the full response in workflow data
-					const workflowData = this.getWorkflowStaticData('node');
-					workflowData.channelsData = validChannels;
-
 					// Map valid channels to dropdown options
 					return validChannels.map(
 						(channel: {
@@ -135,16 +131,16 @@ export class Alive5 implements INodeType {
 						return []; // Return empty array when no channel is selected
 					}
 
-					// Retrieve stored channel data
-					const workflowData = this.getWorkflowStaticData('node');
-					console.log(workflowData);
-					const channelsData = workflowData.channelsData as Array<{
-						channel_id: string;
-						agents: Array<{ user_id: string; screen_name: string }>;
-					}>;
-
-					// Find the selected channel
-					const channel = channelsData.find((channel) => channel.channel_id === channelId);
+					let response = await this.helpers.request({
+						method: 'GET',
+						url: `${BASE_URL}/objects/channels-and-users/list`,
+						headers: {
+							'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
+						},
+					});
+					response = typeof response != 'object' ? JSON.parse(response) : response;
+					const items = response?.data?.Items || [];
+					const channel = items.find((channel: { channel_id: string }) => channel.channel_id === channelId);
 					if (!channel) {
 						return []; // Return empty array if channel not found
 					}
@@ -177,20 +173,7 @@ export class Alive5 implements INodeType {
 				const phoneNumberTo = this.getNodeParameter('phoneNumberTo', itemIndex) as string;
 				const message = this.getNodeParameter('message', itemIndex) as string;
 				const userId = this.getNodeParameter('userId', itemIndex) as string;
-
-				// Get channel data to get the phone number
-				const workflowData = this.getWorkflowStaticData('node');
-				const channelsData = workflowData.channelsData as Array<{
-					channel_id: string;
-					channel_phone_number: string;
-				}>;
-
-				const channel = channelsData.find((ch) => ch.channel_id === channelId);
-				if (!channel) {
-					throw new NodeOperationError(this.getNode(), `Channel with ID ${channelId} not found`);
-				}
-
-				const phoneNumberFrom = channel.channel_phone_number;
+				const phoneNumberFrom = this.getNodeParameter('phoneNumberFrom', itemIndex) as string;
 
 				// Validate phone numbers
 				if (!phoneNumberFrom.match(/^\+[1-9]\d{1,14}$/)) {

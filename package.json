@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-alive",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Send SMS messages via alive5",
   "keywords": [
     "n8n-community-node-package",
