@@ -20,14 +20,16 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 ## Operations
 
-- Send SMS
+- **Send SMS**
   - Send SMS messages via Alive5 API
+  - Dynamically select a channel with a valid phone number
+  - Dynamically select an agent (user) from the selected channel
 
 ## Credentials
 
 The node requires the following credentials:
 
-- Alive5 API
+- **Alive5 API**
   - API Key: Your Alive5 API key
 
 ## Compatibility
@@ -42,33 +44,33 @@ This operation allows you to send SMS messages using the Alive5 API.
 
 #### Parameters
 
-- From Phone Number
+- **From Phone Number**
   - The phone number to send the SMS from (e.g., +18323034408)
-- To Phone Number
+- **To Phone Number**
   - The phone number to send the SMS to (e.g., +1234567890)
-- Message
+- **Message**
   - The text message to send
-- Channel ID
-  - The channel ID for the SMS (default: f16bb507-0d57-47ae-99db-c9e86bc17f5e)
-- User ID
-  - The user ID for the SMS (default: 30a619c8-2639-4329-881b-33078b1596a3)
+- **Channel**
+  - Dynamically select a channel with a valid phone number
+- **Agent**
+  - Dynamically select an agent (user) from the selected channel
 
 #### Example
 
-1. Add the Alive5 node to your workflow
-2. Configure the Alive5 API credentials with your API key
+1. Add the Alive5 node to your workflow.
+2. Configure the Alive5 API credentials with your API key.
 3. Set the required parameters:
-   - From Phone Number: Your sender phone number
-   - To Phone Number: Recipient's phone number
-   - Message: Your SMS message
-   - Channel ID: Your channel ID (or use default)
-   - User ID: Your user ID (or use default)
-4. Execute the workflow to send the SMS
+   - **From Phone Number**: Your sender phone number.
+   - **To Phone Number**: Recipient's phone number.
+   - **Message**: Your SMS message.
+   - **Channel**: Select a channel with a valid phone number.
+   - **Agent**: Select an agent from the selected channel.
+4. Execute the workflow to send the SMS.
 
 ## Resources
 
-* [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-* [Alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
+- [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
+- [Alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
 
 ## Version history
 
@@ -77,6 +79,7 @@ This operation allows you to send SMS messages using the Alive5 API.
 - Initial release
 - Added Send SMS operation
 - Added Alive5 API credentials support
+- Added dynamic channel and agent selection
 
 ## License
 
