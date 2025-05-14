@@ -140,7 +140,9 @@ export class Alive5 implements INodeType {
 					});
 					response = typeof response != 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
-					const channel = items.find((channel: { channel_id: string }) => channel.channel_id === channelId);
+					const channel = items.find(
+						(channel: { channel_id: string }) => channel.channel_id === channelId,
+					);
 					if (!channel) {
 						return []; // Return empty array if channel not found
 					}
@@ -173,7 +175,23 @@ export class Alive5 implements INodeType {
 				const phoneNumberTo = this.getNodeParameter('phoneNumberTo', itemIndex) as string;
 				const message = this.getNodeParameter('message', itemIndex) as string;
 				const userId = this.getNodeParameter('userId', itemIndex) as string;
-				const phoneNumberFrom = this.getNodeParameter('phoneNumberFrom', itemIndex) as string;
+				let response = await this.helpers.request({
+					method: 'GET',
+					url: `${BASE_URL}/objects/channels-and-users/list`,
+					headers: {
+						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
+					},
+				});
+				response = typeof response != 'object' ? JSON.parse(response) : response;
+				const items = response?.data?.Items || [];
+				const channel = items.find(
+					(channel: { channel_id: string }) => channel.channel_id === channelId,
+				);
+
+				if (!channel) {
+					throw new NodeOperationError(this.getNode(), 'Channel with ID ${channelId} not found');
+				}
+				const phoneNumberFrom = channel.channel_phone_number;
 
 				// Validate phone numbers
 				if (!phoneNumberFrom.match(/^\+[1-9]\d{1,14}$/)) {
@@ -188,7 +206,13 @@ export class Alive5 implements INodeType {
 						'Invalid "To" phone number format. Must be in E.164 format (e.g., +1234567890)',
 					);
 				}
-
+				console.log('Phone Number From:', phoneNumberFrom);
+				console.log('Phone Number To:', phoneNumberTo);
+				console.log('Message:', message);
+				console.log('Channel ID:', channelId);
+				console.log('User ID:', userId);
+				console.log('API Key:', (await this.getCredentials('alive5Api')).apiKey);
+				console.log('API URL:', `${BASE_URL}/conversations/sms/send`);
 				const formData = new FormData();
 				formData.append('phone_number_from', phoneNumberFrom);
 				formData.append('phone_number_to', phoneNumberTo);
@@ -196,7 +220,7 @@ export class Alive5 implements INodeType {
 				formData.append('channel_id', channelId);
 				formData.append('user_id', userId);
 
-				const response = await this.helpers.request({
+				response = await this.helpers.request({
 					method: 'POST',
 					url: `${BASE_URL}/conversations/sms/send`,
 					body: formData,
@@ -204,13 +228,10 @@ export class Alive5 implements INodeType {
 						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 					},
 				});
-
-				Logger.debug('API Response:', response);
+				response = typeof response != 'object' ? JSON.parse(response) : response;
+				console.log('API Response:', response);
 
 				// Validate response
-				if (!response || typeof response !== 'object') {
-					throw new NodeOperationError(this.getNode(), 'Invalid API response format');
-				}
 
 				returnData.push({
 					json: response,
