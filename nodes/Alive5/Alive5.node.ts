@@ -1,11 +1,14 @@
 import type {
 	IExecuteFunctions,
+	ILoadOptionsFunctions,
 	INodeExecutionData,
 	INodeType,
 	INodeTypeDescription,
 } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
 import { FormData } from 'formdata-node';
+
+const BASE_URL = 'https://api.alive5.com/public/1.1';
 
 export class Alive5 implements INodeType {
 	description: INodeTypeDescription = {
@@ -54,22 +57,84 @@ export class Alive5 implements INodeType {
 				required: true,
 			},
 			{
-				displayName: 'Channel ID',
+				displayName: 'Channel Name or ID',
 				name: 'channelId',
-				type: 'string',
-				default: 'f16bb507-0d57-47ae-99db-c9e86bc17f5e',
-				description: 'The channel ID for the SMS',
+				type: 'options',
+				typeOptions: {
+					loadOptionsMethod: 'getChannels',
+				},
+				default: '',
+				description:
+					'Select a channel. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 				required: true,
 			},
 			{
-				displayName: 'User ID',
+				displayName: 'User Name or ID',
 				name: 'userId',
-				type: 'string',
-				default: '30a619c8-2639-4329-881b-33078b1596a3',
-				description: 'The user ID for the SMS',
+				type: 'options',
+				typeOptions: {
+					loadOptionsDependsOn: ['channelId'],
+					loadOptionsMethod: 'getAgents',
+				},
+				default: '',
+				description:
+					'Select an user from the selected channel. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
 				required: true,
 			},
 		],
+	};
+
+	methods = {
+		loadOptions: {
+			// Fetch channels with valid phone numbers
+			async getChannels(this: ILoadOptionsFunctions) {
+				const response = await this.helpers.request({
+					method: 'GET',
+					url: 'https://api.alive5.com/public/1.1/objects/channels-and-users/list',
+					headers: {
+						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
+					},
+				});
+
+				// Store the full response for later use
+				this.getWorkflowStaticData('node').channelsData = response.data.Items;
+
+				// Filter channels with valid phone numbers
+				const channels = response.data.Items.filter(
+					(channel: { channel_phone_number: string }) =>
+						channel.channel_phone_number && channel.channel_phone_number !== 'undefined',
+				);
+
+				return channels.map((channel: { channel_id: string; channel_label: string }) => ({
+					name: channel.channel_label,
+					value: channel.channel_id,
+				}));
+			},
+
+			// Fetch agents from the selected channel
+			async getAgents(this: ILoadOptionsFunctions) {
+				const channelId = this.getNodeParameter('channelId', 0) as string;
+
+				// Retrieve stored channel data
+				const channelsData = this.getWorkflowStaticData('node').channelsData as Array<{
+					channel_id: string;
+					agents: Array<{ user_id: string; screen_name: string }>;
+				}>;
+
+				// Find the selected channel
+				const channel = channelsData.find((channel) => channel.channel_id === channelId);
+
+				if (!channel) {
+					throw new NodeOperationError(this.getNode(), 'Channel not found');
+				}
+
+				// Map agents to dropdown options
+				return channel.agents.map((agent: { user_id: string; screen_name: string }) => ({
+					name: agent.screen_name,
+					value: agent.user_id,
+				}));
+			},
+		},
 	};
 
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
@@ -93,7 +158,7 @@ export class Alive5 implements INodeType {
 
 				const response = await this.helpers.request({
 					method: 'POST',
-					url: 'https://api.alive5.com/public/1.0/conversations/sms/send',
+					url: `${BASE_URL}/conversations/sms/send`,
 					body: formData,
 				});
 
