@@ -13,7 +13,7 @@ const BASE_URL = 'https://api.alive5.com/public/1.1';
 
 export class Alive5 implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'Alive5',
+		displayName: 'alive5',
 		name: 'alive5',
 		group: ['communication'],
 		version: 1,
