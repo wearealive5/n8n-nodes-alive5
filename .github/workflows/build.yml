@@ -39,5 +39,5 @@ jobs:
 
     - name: Test build
       run: |
-        node dist/nodes/Alive5/Alive5.node.js
+        node dist/nodes/alive5/Alive5.node.js
         node dist/credentials/Alive5Api.credentials.js

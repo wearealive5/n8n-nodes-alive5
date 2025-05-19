@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-alive5",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "Send SMS messages via alive5",
   "keywords": [
     "n8n-community-node-package",
@@ -14,7 +14,7 @@
   "license": "MIT",
   "homepage": "https://www.alive5.com/",
   "author": {
-    "name": "Alive5 Inc",
+    "name": "alive5 Inc",
     "email": "support@alive5.com"
   },
   "repository": {
@@ -45,7 +45,7 @@
       "dist/credentials/Alive5Api.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/Alive5/Alive5.node.js"
+      "dist/nodes/alive5/Alive5.node.js"
     ]
   },
   "devDependencies": {

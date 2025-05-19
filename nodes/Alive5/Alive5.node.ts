@@ -1,9 +1,9 @@
 import {
-	IExecuteFunctions,
-	ILoadOptionsFunctions,
-	INodeExecutionData,
-	INodeType,
-	INodeTypeDescription,
+	type IExecuteFunctions,
+	type ILoadOptionsFunctions,
+	type INodeExecutionData,
+	type INodeType,
+	type INodeTypeDescription,
 	LoggerProxy as Logger,
 } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
@@ -17,9 +17,9 @@ export class Alive5 implements INodeType {
 		name: 'alive5',
 		group: ['communication'],
 		version: 1,
-		description: 'Send SMS messages via Alive5 API',
+		description: 'Send SMS messages via alive5 API',
 		defaults: {
-			name: 'Alive5',
+			name: 'alive5',
 		},
 		icon: 'file:alive5.svg',
 		inputs: ['main'],
@@ -92,7 +92,7 @@ export class Alive5 implements INodeType {
 							'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 						},
 					});
-					response = typeof response != 'object' ? JSON.parse(response) : response;
+					response = typeof response !== 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
 					// Filter channels with valid phone numbers
 					const validChannels = items.filter(
@@ -138,7 +138,7 @@ export class Alive5 implements INodeType {
 							'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 						},
 					});
-					response = typeof response != 'object' ? JSON.parse(response) : response;
+					response = typeof response !== 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
 					const channel = items.find(
 						(channel: { channel_id: string }) => channel.channel_id === channelId,
@@ -182,7 +182,7 @@ export class Alive5 implements INodeType {
 						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 					},
 				});
-				response = typeof response != 'object' ? JSON.parse(response) : response;
+				response = typeof response !== 'object' ? JSON.parse(response) : response;
 				const items = response?.data?.Items || [];
 				const channel = items.find(
 					(channel: { channel_id: string }) => channel.channel_id === channelId,
@@ -228,7 +228,7 @@ export class Alive5 implements INodeType {
 						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 					},
 				});
-				response = typeof response != 'object' ? JSON.parse(response) : response;
+				response = typeof response !== 'object' ? JSON.parse(response) : response;
 				console.log('API Response:', response);
 
 				// Validate response

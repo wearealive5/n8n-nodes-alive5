@@ -2,7 +2,7 @@
 
 # n8n-nodes-alive5
 
-This is an n8n community node for sending SMS messages via the Alive5 API.
+This is an n8n community node for sending SMS messages via the alive5 API.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -21,7 +21,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 ## Operations
 
 - **Send SMS**
-  - Send SMS messages via Alive5 API
+  - Send SMS messages via alive5 API
   - Dynamically select a channel with a valid phone number
   - Dynamically select an agent (user) from the selected channel
 
@@ -29,8 +29,8 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 The node requires the following credentials:
 
-- **Alive5 API**
-  - API Key: Your Alive5 API key
+- **alive5 API**
+  - API Key: Your alive5 API key
 
 ## Compatibility
 
@@ -40,7 +40,7 @@ This node has been tested with n8n version 1.0.0 and above.
 
 ### Send SMS
 
-This operation allows you to send SMS messages using the Alive5 API.
+This operation allows you to send SMS messages using the alive5 API.
 
 #### Parameters
 
@@ -57,8 +57,8 @@ This operation allows you to send SMS messages using the Alive5 API.
 
 #### Example
 
-1. Add the Alive5 node to your workflow.
-2. Configure the Alive5 API credentials with your API key.
+1. Add the alive5 node to your workflow.
+2. Configure the alive5 API credentials with your API key.
 3. Set the required parameters:
    - **From Phone Number**: Your sender phone number.
    - **To Phone Number**: Recipient's phone number.
@@ -70,16 +70,9 @@ This operation allows you to send SMS messages using the Alive5 API.
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-- [Alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
+- [alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
 
 ## Version history
-
-### 1.0.0
-
-- Initial release
-- Added Send SMS operation
-- Added Alive5 API credentials support
-- Added dynamic channel and agent selection
 
 ## License
 
