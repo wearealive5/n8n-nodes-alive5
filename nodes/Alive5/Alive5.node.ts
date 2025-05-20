@@ -1,3 +1,5 @@
+/* eslint-disable n8n-nodes-base/node-param-display-name-wrong-for-dynamic-options */
+/* eslint-disable n8n-nodes-base/node-param-display-name-miscased */
 import {
 	type IExecuteFunctions,
 	type ILoadOptionsFunctions,
@@ -13,13 +15,13 @@ const BASE_URL = 'https://api.alive5.com/public/1.1';
 
 export class Alive5 implements INodeType {
 	description: INodeTypeDescription = {
-		displayName: 'alive5',
+		displayName: 'Alive5',
 		name: 'alive5',
 		group: ['communication'],
 		version: 1,
 		description: 'Send SMS messages via alive5 API',
 		defaults: {
-			name: 'alive5',
+			name: 'Alive5',
 		},
 		icon: 'file:alive5.svg',
 		inputs: ['main'],
@@ -32,7 +34,7 @@ export class Alive5 implements INodeType {
 		],
 		properties: [
 			{
-				displayName: 'Channel Name or ID',
+				displayName: 'Channel name or ID',
 				name: 'channelId',
 				type: 'options',
 				typeOptions: {
@@ -44,7 +46,7 @@ export class Alive5 implements INodeType {
 				required: true,
 			},
 			{
-				displayName: 'User Name or ID',
+				displayName: 'User email or ID',
 				name: 'userId',
 				type: 'options',
 				typeOptions: {
@@ -62,7 +64,7 @@ export class Alive5 implements INodeType {
 				},
 			},
 			{
-				displayName: 'To Phone Number',
+				displayName: 'To phone number',
 				name: 'phoneNumberTo',
 				type: 'string',
 				default: '',

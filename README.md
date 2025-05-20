@@ -45,7 +45,7 @@ This operation allows you to send SMS messages using the alive5 API.
 
 - **From Phone Number**
   - The phone number to send the SMS from (e.g., +18323034408)
-- **To Phone Number**
+- **To phone number**
   - The phone number to send the SMS to (e.g., +1234567890)
 - **Message**
   - The text message to send
@@ -55,12 +55,34 @@ This operation allows you to send SMS messages using the alive5 API.
   - Dynamically select an agent (user) from the selected channel
 
 #### Example
-
+```json
+{
+	"nodes": [
+		{
+			"parameters": {
+				"fromPhoneNumber": "+18323034408",
+				"toPhoneNumber": "+1234567890",
+				"message": "Hello from n8n!",
+				"channel": "Channel Name",
+				"agent": "Agent Name"
+			},
+			"name": "Send SMS",
+			"type": "n8n-nodes-alive5.SendSMS",
+			"typeVersion": 1,
+			"position": [
+				300,
+				300
+			]
+		}
+	],
+	"connections": {}
+}
+```
 1. Add the alive5 node to your workflow.
 2. Configure the alive5 API credentials with your API key.
 3. Set the required parameters:
-   - **From Phone Number**: Your sender phone number.
-   - **To Phone Number**: Recipient's phone number.
+   - **From phone number**: Your sender phone number.
+   - **To phone number**: Recipient's phone number.
    - **Message**: Your SMS message.
    - **Channel**: Select a channel with a valid phone number.
    - **Agent**: Select an agent from the selected channel.

@@ -7,8 +7,7 @@ import type {
 
 export class Alive5Api implements ICredentialType {
 	name = 'alive5Api';
-	// eslint-disable-next-line n8n-nodes-base/cred-class-field-display-name-miscased
-	displayName = 'alive5 API';
+	displayName = 'Alive5 API';
 	documentationUrl = 'https://documenter.getpostman.com/view/12135254/UVsQr3zh';
 	icon = 'file:icons/alive5.svg' as const;
 	properties: INodeProperties[] = [
