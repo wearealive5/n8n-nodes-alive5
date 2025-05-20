@@ -213,7 +213,7 @@ export class Alive5 implements INodeType {
 				console.log('Message:', message);
 				console.log('Channel ID:', channelId);
 				console.log('User ID:', userId);
-				console.log('API Key:', (await this.getCredentials('alive5Api')).apiKey);
+				console.log('API key:', (await this.getCredentials('alive5Api')).apiKey);
 				console.log('API URL:', `${BASE_URL}/conversations/sms/send`);
 				const formData = new FormData();
 				formData.append('phone_number_from', phoneNumberFrom);

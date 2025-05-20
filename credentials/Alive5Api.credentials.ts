@@ -15,7 +15,7 @@ export class Alive5Api implements ICredentialType {
 		// Properties can be defined exactly in the same way
 		// as node properties.
 		{
-			displayName: 'API Key',
+			displayName: 'API key',
 			name: 'apiKey',
 			type: 'string',
 			typeOptions: {
