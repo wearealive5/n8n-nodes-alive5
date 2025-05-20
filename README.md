@@ -11,8 +11,7 @@ This is an n8n community node for sending SMS messages via the alive5 API.
 [Credentials](#credentials)  
 [Compatibility](#compatibility)  
 [Usage](#usage)  
-[Resources](#resources)  
-[Version history](#version-history)
+[Resources](#resources)
 
 ## Installation
 
@@ -71,8 +70,6 @@ This operation allows you to send SMS messages using the alive5 API.
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
-
-## Version history
 
 ## License
 
