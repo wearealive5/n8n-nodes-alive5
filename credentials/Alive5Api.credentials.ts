@@ -8,7 +8,7 @@ import type {
 export class Alive5Api implements ICredentialType {
 	name = 'alive5Api';
 	displayName = 'Alive5 API';
-	documentationUrl = 'https://documenter.getpostman.com/view/12135254/UVsQr3zh';
+	documentationUrl = 'https://support.alive5.com/public-api-overview';
 	icon = 'file:icons/alive5.svg' as const;
 	properties: INodeProperties[] = [
 		// The credentials to get from user and save encrypted.

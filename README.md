@@ -55,6 +55,7 @@ This operation allows you to send SMS messages using the alive5 API.
   - Dynamically select an agent (user) from the selected channel
 
 #### Example
+
 ```json
 {
 	"nodes": [
@@ -69,15 +70,13 @@ This operation allows you to send SMS messages using the alive5 API.
 			"name": "Send SMS",
 			"type": "n8n-nodes-alive5.SendSMS",
 			"typeVersion": 1,
-			"position": [
-				300,
-				300
-			]
+			"position": [300, 300]
 		}
 	],
 	"connections": {}
 }
 ```
+
 1. Add the alive5 node to your workflow.
 2. Configure the alive5 API credentials with your API key.
 3. Set the required parameters:
@@ -91,7 +90,7 @@ This operation allows you to send SMS messages using the alive5 API.
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-- [alive5 API Documentation](https://documenter.getpostman.com/view/12135254/UVsQr3zh)
+- [alive5 API Documentation](https://support.alive5.com/public-api-overview)
 
 ## License
 
