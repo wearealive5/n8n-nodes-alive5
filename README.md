@@ -60,7 +60,7 @@ This operation allows you to send SMS messages using the alive5 API.
 	"nodes": [
 		{
 			"parameters": {
-				"fromPhoneNumber": "+18323034408",
+				"fromPhoneNumber": "+1234567890",
 				"toPhoneNumber": "+1234567890",
 				"message": "Hello from n8n!",
 				"channel": "Channel Name",
