@@ -44,7 +44,7 @@ This operation allows you to send SMS messages using the alive5 API.
 #### Parameters
 
 - **From Phone Number**
-  - The phone number to send the SMS from (e.g., +18323034408)
+  - The phone number to send the SMS from (e.g., +1234567890)
 - **To phone number**
   - The phone number to send the SMS to (e.g., +1234567890)
 - **Message**
