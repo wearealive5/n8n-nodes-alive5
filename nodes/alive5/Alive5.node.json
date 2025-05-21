@@ -1,0 +1,19 @@
+{
+	"node": "n8n-nodes-alive5",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Communication", "Development"],
+	"resources": {
+		"credentialDocumentation": [
+			{
+				"url": "https://documenter.getpostman.com/view/12135254/UVsQr3zh"
+			}
+		],
+		"primaryDocumentation": [
+			{
+				"url": "https://documenter.getpostman.com/view/12135254/UVsQr3zh"
+			}
+		]
+	},
+	"alias": ["SMS"]
+}
