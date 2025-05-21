@@ -35,7 +35,7 @@ jobs:
       run: pnpm lint
 
     - name: Clean
-      run: pnpm Clean
+      run: pnpm clean
 
     - name: Build
       run: pnpm build
