@@ -37,6 +37,9 @@ jobs:
     - name: Clean
       run: pnpm clean
 
+    - name: List dist directory
+      run: ls -R dist
+
     - name: Build
       run: pnpm build
 
