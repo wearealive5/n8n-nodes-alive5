@@ -1,4 +1,4 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+![Banner image](https://go.alive5.com/images/alive5-banner-1584x396.png)
 
 # n8n-nodes-alive5
 
@@ -30,6 +30,7 @@ The node requires the following credentials:
 
 - **Alive5 API**
   - API Key: Your Alive5 API key
+  - To obtain an Alive5 SMS account and API key, please contact us at support@alive5.com, view our website at https://www.alive5.com, or book a demo at https://demo.alive5.com
 
 ## Compatibility
 
@@ -43,7 +44,7 @@ This operation allows you to send SMS messages using the Alive5 API.
 
 #### Parameters
 
-- **From Phone Number**
+- **From phone Number**
   - The phone number to send the SMS from (e.g., +1234567890)
 - **To phone number**
   - The phone number to send the SMS to (e.g., +1234567890)
