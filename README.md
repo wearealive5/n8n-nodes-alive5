@@ -2,7 +2,7 @@
 
 # n8n-nodes-alive5
 
-This is an n8n community node for sending SMS messages via the alive5 API.
+This is an n8n community node for sending SMS messages via the Alive5 API.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -20,16 +20,16 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 ## Operations
 
 - **Send SMS**
-  - Send SMS messages via alive5 API
-  - Dynamically select a channel with a valid phone number
-  - Dynamically select an agent (user) from the selected channel
+  - Send SMS messages via Alive5 API
+  - Dynamically select a Channel with a valid phone number
+  - Dynamically select a User (Admin or Agent) from the selected Channel
 
 ## Credentials
 
 The node requires the following credentials:
 
-- **alive5 API**
-  - API Key: Your alive5 API key
+- **Alive5 API**
+  - API Key: Your Alive5 API key
 
 ## Compatibility
 
@@ -39,7 +39,7 @@ This node has been tested with n8n version 1.0.0 and above.
 
 ### Send SMS
 
-This operation allows you to send SMS messages using the alive5 API.
+This operation allows you to send SMS messages using the Alive5 API.
 
 #### Parameters
 
@@ -50,9 +50,9 @@ This operation allows you to send SMS messages using the alive5 API.
 - **Message**
   - The text message to send
 - **Channel**
-  - Dynamically select a channel with a valid phone number
-- **Agent**
-  - Dynamically select an agent (user) from the selected channel
+  - Dynamically select a Channel with a valid phone number
+- **User**
+  - Dynamically select a User (Admin or Agent) from the selected Channel
 
 #### Example
 
@@ -77,20 +77,20 @@ This operation allows you to send SMS messages using the alive5 API.
 }
 ```
 
-1. Add the alive5 node to your workflow.
-2. Configure the alive5 API credentials with your API key.
+1. Add the Alive5 node to your workflow.
+2. Configure the Alive5 API credentials with your API key.
 3. Set the required parameters:
    - **From phone number**: Your sender phone number.
    - **To phone number**: Recipient's phone number.
    - **Message**: Your SMS message.
-   - **Channel**: Select a channel with a valid phone number.
-   - **Agent**: Select an agent from the selected channel.
+   - **Channel**: Select a Channel with a valid phone number.
+   - **User**: Select a User (Admin or Agent) from the selected Channel.
 4. Execute the workflow to send the SMS.
 
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
-- [alive5 API Documentation](https://support.alive5.com/public-api-overview)
+- [Alive5 API Documentation](https://support.alive5.com/public-api-overview)
 
 ## License
 
