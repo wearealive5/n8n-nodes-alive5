@@ -2,7 +2,7 @@
 
 # n8n-nodes-alive5
 
-This is an n8n community node for sending SMS messages via the alive5 API.
+This is an n8n community node for sending SMS messages via the Alive5 API.
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
@@ -20,7 +20,7 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 ## Operations
 
 - **Send SMS**
-  - Send SMS messages via alive5 API
+  - Send SMS messages via Alive5 API
   - Dynamically select a channel with a valid phone number
   - Dynamically select an agent (user) from the selected channel
 
