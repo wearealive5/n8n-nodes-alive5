@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-alive5",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Send SMS messages via alive5",
   "keywords": [
     "n8n-community-node-package",
@@ -60,8 +60,5 @@
   },
   "peerDependencies": {
     "n8n-workflow": "*"
-  },
-  "dependencies": {
-    "formdata-node": "^6.0.3"
   }
 }

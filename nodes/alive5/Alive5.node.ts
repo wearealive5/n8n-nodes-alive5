@@ -9,7 +9,6 @@ import {
 	LoggerProxy as Logger,
 } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
-import { FormData } from 'formdata-node';
 
 const BASE_URL = 'https://api.alive5.com/public/1.1';
 
@@ -215,17 +214,19 @@ export class Alive5 implements INodeType {
 				console.log('User ID:', userId);
 				console.log('API key:', (await this.getCredentials('alive5Api')).apiKey);
 				console.log('API URL:', `${BASE_URL}/conversations/sms/send`);
-				const formData = new FormData();
-				formData.append('phone_number_from', phoneNumberFrom);
-				formData.append('phone_number_to', phoneNumberTo);
-				formData.append('message', message);
-				formData.append('channel_id', channelId);
-				formData.append('user_id', userId);
+				// Prepare request body
+				const requestBody = {
+						phone_number_from: phoneNumberFrom,
+						phone_number_to: phoneNumberTo,
+						message: message,
+						channel_id: channelId,
+						user_id: userId,
+				};
 
 				response = await this.helpers.request({
 					method: 'POST',
 					url: `${BASE_URL}/conversations/sms/send`,
-					body: formData,
+					body: requestBody,
 					headers: {
 						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
 					},
