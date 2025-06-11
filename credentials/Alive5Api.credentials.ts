@@ -11,9 +11,6 @@ export class Alive5Api implements ICredentialType {
 	documentationUrl = 'https://support.alive5.com/public-api-overview';
 	icon = 'file:icons/alive5.svg' as const;
 	properties: INodeProperties[] = [
-		// The credentials to get from user and save encrypted.
-		// Properties can be defined exactly in the same way
-		// as node properties.
 		{
 			displayName: 'API key',
 			name: 'apiKey',
@@ -25,9 +22,6 @@ export class Alive5Api implements ICredentialType {
 		},
 	];
 
-	// This credential is currently not used by any node directly
-	// but the HTTP Request node can use it to make requests.
-	// The credential is also testable due to the `test` property below
 	authenticate: IAuthenticateGeneric = {
 		type: 'generic',
 		properties: {
@@ -37,7 +31,6 @@ export class Alive5Api implements ICredentialType {
 		},
 	};
 
-	// The block below tells how this credential can be tested
 	test: ICredentialTestRequest = {
 		request: {
 			baseURL: 'https://api.alive5.com/public/1.0',

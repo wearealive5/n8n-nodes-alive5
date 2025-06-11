@@ -49,7 +49,7 @@ export class Alive5 implements INodeType {
 				name: 'userId',
 				type: 'options',
 				typeOptions: {
-					loadOptionsDependsOn: ['channelId'], // Trigger getAgents when channelId changes
+					loadOptionsDependsOn: ['channelId'],
 					loadOptionsMethod: 'getAgents',
 				},
 				default: '',
@@ -95,15 +95,12 @@ export class Alive5 implements INodeType {
 					});
 					response = typeof response !== 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
-					// Filter channels with valid phone numbers
 					const validChannels = items.filter(
 						(channel: { channel_phone_number?: string }) =>
 							channel.channel_phone_number &&
 							channel.channel_phone_number !== 'undefined' &&
 							channel.channel_phone_number.startsWith('+'),
 					);
-
-					// Map valid channels to dropdown options
 					return validChannels.map(
 						(channel: {
 							channel_phone_number: string;
@@ -112,7 +109,7 @@ export class Alive5 implements INodeType {
 						}) => ({
 							name: channel.channel_label || 'Unnamed Channel',
 							value: channel.channel_id,
-							channel_phone_number: channel.channel_phone_number, // Include phone_number_from
+							channel_phone_number: channel.channel_phone_number,
 						}),
 					);
 				} catch (error) {
@@ -127,11 +124,9 @@ export class Alive5 implements INodeType {
 			async getAgents(this: ILoadOptionsFunctions) {
 				try {
 					const channelId = this.getNodeParameter('channelId', 0) as string;
-					console.log('Selected Channel ID:', channelId);
 					if (!channelId) {
-						return []; // Return empty array when no channel is selected
+						return [];
 					}
-
 					let response = await this.helpers.request({
 						method: 'GET',
 						url: `${BASE_URL}/objects/channels-and-users/list`,
@@ -144,23 +139,16 @@ export class Alive5 implements INodeType {
 					const channel = items.find(
 						(channel: { channel_id: string }) => channel.channel_id === channelId,
 					);
-					if (!channel) {
-						return []; // Return empty array if channel not found
+					if (!channel || !channel.agents || !Array.isArray(channel.agents)) {
+						return [];
 					}
-
-					// Validate channel agents
-					if (!channel.agents || !Array.isArray(channel.agents)) {
-						return []; // Return empty array if no agents found
-					}
-
-					// Map agents to dropdown options
 					return channel.agents.map((agent: { user_id: string; screen_name: string }) => ({
 						name: agent.screen_name || 'Unnamed Agent',
 						value: agent.user_id,
 					}));
 				} catch (error) {
 					Logger.error('Error fetching agents:', error);
-					return []; // Return empty array on error
+					return [];
 				}
 			},
 		},
@@ -190,11 +178,10 @@ export class Alive5 implements INodeType {
 				);
 
 				if (!channel) {
-					throw new NodeOperationError(this.getNode(), 'Channel with ID ${channelId} not found');
+					throw new NodeOperationError(this.getNode(), `Channel with ID ${channelId} not found`);
 				}
 				const phoneNumberFrom = channel.channel_phone_number;
 
-				// Validate phone numbers
 				if (!phoneNumberFrom.match(/^\+[1-9]\d{1,14}$/)) {
 					throw new NodeOperationError(
 						this.getNode(),
@@ -207,20 +194,13 @@ export class Alive5 implements INodeType {
 						'Invalid "To" phone number format. Must be in E.164 format (e.g., +1234567890)',
 					);
 				}
-				console.log('Phone Number From:', phoneNumberFrom);
-				console.log('Phone Number To:', phoneNumberTo);
-				console.log('Message:', message);
-				console.log('Channel ID:', channelId);
-				console.log('User ID:', userId);
-				console.log('API key:', (await this.getCredentials('alive5Api')).apiKey);
-				console.log('API URL:', `${BASE_URL}/conversations/sms/send`);
-				// Prepare request body
+
 				const requestBody = {
-						phone_number_from: phoneNumberFrom,
-						phone_number_to: phoneNumberTo,
-						message: message,
-						channel_id: channelId,
-						user_id: userId,
+					phone_number_from: phoneNumberFrom,
+					phone_number_to: phoneNumberTo,
+					message: message,
+					channel_id: channelId,
+					user_id: userId,
 				};
 
 				response = await this.helpers.request({
@@ -229,12 +209,10 @@ export class Alive5 implements INodeType {
 					body: requestBody,
 					headers: {
 						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
+						'Content-Type': 'application/json',
 					},
 				});
 				response = typeof response !== 'object' ? JSON.parse(response) : response;
-				console.log('API Response:', response);
-
-				// Validate response
 
 				returnData.push({
 					json: response,
