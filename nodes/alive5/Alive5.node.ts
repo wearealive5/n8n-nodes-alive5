@@ -10,7 +10,6 @@ import {
 } from 'n8n-workflow';
 import { NodeOperationError } from 'n8n-workflow';
 
-const BASE_URL = 'https://api.alive5.com/public/1.1';
 
 export class Alive5 implements INodeType {
 	description: INodeTypeDescription = {
@@ -86,13 +85,18 @@ export class Alive5 implements INodeType {
 		loadOptions: {
 			async getChannels(this: ILoadOptionsFunctions) {
 				try {
-					let response = await this.helpers.request({
-						method: 'GET',
-						url: `${BASE_URL}/objects/channels-and-users/list`,
-						headers: {
-							'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
-						},
-					});
+					const credentials = (await this.getCredentials('alive5Api')) as {
+						apiKey: string;
+						baseUrl: string;
+					};
+					let response = await this.helpers.httpRequestWithAuthentication.call(
+                this,
+                'alive5Api',
+                {
+                    method: 'GET',
+                    url: `${credentials.baseUrl}/objects/channels-and-users/list`,
+                }
+            );
 					response = typeof response !== 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
 					const validChannels = items.filter(
@@ -123,17 +127,22 @@ export class Alive5 implements INodeType {
 
 			async getAgents(this: ILoadOptionsFunctions) {
 				try {
+					const credentials = (await this.getCredentials('alive5Api')) as {
+						apiKey: string;
+						baseUrl: string;
+					};
 					const channelId = this.getNodeParameter('channelId', 0) as string;
 					if (!channelId) {
 						return [];
 					}
-					let response = await this.helpers.request({
-						method: 'GET',
-						url: `${BASE_URL}/objects/channels-and-users/list`,
-						headers: {
-							'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
-						},
-					});
+					let response = await this.helpers.httpRequestWithAuthentication.call(
+                        this,
+                        'alive5Api',
+                        {
+                            method: 'GET',
+                            url: `${credentials.baseUrl}/objects/channels-and-users/list`,
+                        }
+                    );
 					response = typeof response !== 'object' ? JSON.parse(response) : response;
 					const items = response?.data?.Items || [];
 					const channel = items.find(
@@ -157,20 +166,24 @@ export class Alive5 implements INodeType {
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 		const returnData: INodeExecutionData[] = [];
-
+		const credentials = (await this.getCredentials('alive5Api')) as {
+			apiKey: string;
+			baseUrl: string;
+		};
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
 				const channelId = this.getNodeParameter('channelId', itemIndex) as string;
 				const phoneNumberTo = this.getNodeParameter('phoneNumberTo', itemIndex) as string;
 				const message = this.getNodeParameter('message', itemIndex) as string;
 				const userId = this.getNodeParameter('userId', itemIndex) as string;
-				let response = await this.helpers.request({
-					method: 'GET',
-					url: `${BASE_URL}/objects/channels-and-users/list`,
-					headers: {
-						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
-					},
-				});
+				let response = await this.helpers.httpRequestWithAuthentication.call(
+                    this,
+                    'alive5Api',
+                    {
+                        method: 'GET',
+                        url: `${credentials.baseUrl}/objects/channels-and-users/list`,
+                    }
+                );
 				response = typeof response !== 'object' ? JSON.parse(response) : response;
 				const items = response?.data?.Items || [];
 				const channel = items.find(
@@ -203,15 +216,19 @@ export class Alive5 implements INodeType {
 					user_id: userId,
 				};
 
-				response = await this.helpers.request({
-					method: 'POST',
-					url: `${BASE_URL}/conversations/sms/send`,
-					body: requestBody,
-					headers: {
-						'X-A5-APIKEY': (await this.getCredentials('alive5Api')).apiKey,
-						'Content-Type': 'application/json',
-					},
-				});
+				response = await this.helpers.httpRequestWithAuthentication.call(
+                    this,
+                    'alive5Api',
+                    {
+                        method: 'POST',
+                        url: `${credentials.baseUrl}/conversations/sms/send`,
+                        body: requestBody,
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        json: true,
+                    }
+                );
 				response = typeof response !== 'object' ? JSON.parse(response) : response;
 
 				returnData.push({

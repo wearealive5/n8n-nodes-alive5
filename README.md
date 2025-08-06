@@ -15,7 +15,15 @@ This is an n8n community node for sending SMS messages via the Alive5 API.
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+Follow these steps to install this community node in your n8n instance:
+
+1. Open n8n.
+2. Go to **Settings** > **Community Nodes**.
+3. Click **Install Community Node**.
+4. Enter the name of this package: `n8n-nodes-raia`
+5. Click **Install**.
+
+For more details, see the [official n8n documentation](https://docs.n8n.io/integrations/community-nodes/installation/verified-install/).
 
 ## Operations
 

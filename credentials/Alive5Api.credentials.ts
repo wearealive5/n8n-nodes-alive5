@@ -20,6 +20,13 @@ export class Alive5Api implements ICredentialType {
 			},
 			default: '',
 		},
+		{
+			displayName: 'API Base URL',
+			name: 'baseUrl',
+			type: 'string',
+			default: 'https://api.alive5.com/public/1.1',
+			placeholder: 'https://api.alive5.com/public/1.1',
+		},
 	];
 
 	authenticate: IAuthenticateGeneric = {
