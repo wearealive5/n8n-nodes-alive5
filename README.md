@@ -38,6 +38,7 @@ The node requires the following credentials:
 
 - **Alive5 API**
   - API Key: Your Alive5 API key
+  - API Base URL: The base URL for the Alive5 API (default: https://api.alive5.com/public/1.1)
   - To obtain an Alive5 SMS account and API key, please contact us at support@alive5.com, view our website at https://www.alive5.com, or book a demo at https://demo.alive5.com
 
 ## Compatibility
